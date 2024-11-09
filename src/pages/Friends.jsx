@@ -31,14 +31,15 @@ const Friends = () => {
   ]);
 
   const filteredFriends = selectedYear === 'All'
-    ? friends.filter(friend => friend.name.toLowerCase().includes(searchText.toLowerCase()))
-    : friends.filter(friend => friend.year === selectedYear && friend.name.toLowerCase().includes(searchText.toLowerCase()));
+    ? friendQuotes.filter(friend => friend.user.name.toLowerCase().includes(searchText.toLowerCase()))
+    : friendQuotes.filter(friend => friend.user.rollNumber === selectedYear && friend.user.name.toLowerCase().includes(searchText.toLowerCase()));
 
   const handleYearSelect = (year) => {
     setSelectedYear(year);
   };
-  const onSortEnd = (oldIndex, newIndex) => {
-    setFriends((array) => arrayMoveImmutable(array, oldIndex, newIndex))
+
+  const onSortEnd2 = (oldIndex, newIndex) => {
+    setFriendQuotes((array) => arrayMoveImmutable(array, oldIndex, newIndex))
   }
 
   const handleSearchTextChange = (e) => {
@@ -60,24 +61,40 @@ const Friends = () => {
   }, [user])
 
   const sortFriends = (type) => {
-    let sortedFriends = [...friends];
+    let sortedFriends = [...friendQuotes];
     switch(type) {
       case 'nameAsc':
-        sortedFriends.sort((a, b) => a.name.localeCompare(b.name));
+        sortedFriends.sort((a, b) => a.user.name.localeCompare(b.user.name));
         break;
       case 'nameDesc':
-        sortedFriends.sort((a, b) => b.name.localeCompare(a.name));
+        sortedFriends.sort((a, b) => b.user.name.localeCompare(a.user.name));
         break;
       case 'yearAsc':
-        sortedFriends.sort((a, b) => a.year.localeCompare(b.year));
+        sortedFriends.sort((a, b) => a.user.rollNumber.localeCompare(b.user.rollNumber));
         break;
       case 'yearDesc':
-        sortedFriends.sort((a, b) => b.year.localeCompare(a.year));
+        sortedFriends.sort((a, b) => b.user.rollNumber.localeCompare(a.user.rollNumber));
         break;
       default:
         break;
     }
-    setFriends(sortedFriends);
+    setFriendQuotes(sortedFriends);
+  }
+
+  const checkOrder = async () => {
+    console.log(friendQuotes)
+    const friendIds = friendQuotes.map(friendQuote => friendQuote.user._id);
+
+    try {
+      const response = await publicRequest.post('/api/friend/order', {
+        email: user.email,
+        newOrder: friendIds
+      })
+
+      console.log(response.data)
+    } catch(err) {
+      console.error(err)
+    }
   }
 
   return (
@@ -94,6 +111,9 @@ const Friends = () => {
         <div className="md:flex justify-between text-center items-center mb-8">
           <h1 className="text-4xl font-bold mb-2">Friends</h1>
           <div className="flex items-center justify-center space-x-2">
+            <button onClick={checkOrder} className='p-2 bg-purple-600 text-white rounded-md text-lg'>
+              Save
+            </button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="p-2 bg-sky-800 text-white border-2 border-sky-600 hover:bg-sky-700 hover:border-sky-500">
@@ -164,9 +184,9 @@ const Friends = () => {
               </motion.div>
             ))} */}
           {/* <SortableList onSortEnd={onSortEnd} className="flex flex-wrap select-none" draggedItemClassName={"opacity:0"}> */}
-          <SortableList onSortEnd={onSortEnd} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2" draggedItemClassName={"opacity:0"}>
-            {filteredFriends.map((friend) => (
-              <SortableItem key={friend.id}>
+          <SortableList onSortEnd={onSortEnd2} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2" draggedItemClassName={"opacity:0"}>
+            {friends && filteredFriends.map((friend) => (
+              <SortableItem key={friend._id}>
                 <div 
                   // layout
                   // initial={{ opacity: 0, scale: 0.8 }}
@@ -178,18 +198,19 @@ const Friends = () => {
                     className="cursor-move"
                   >
                     <img
-                      src={`/api/placeholder/150/150`}
+                      src={friend.user.photoURL}
                       alt={friend.name}
                       className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
+                      draggable="false"
                     />
-                    <h2 className="text-xl font-semibold mb-2">{friend.name}</h2>
-                    <p className="text-sm text-blue-200 mb-2">{friend.year}</p>
-                    <p className="text-sm italic">"{friend.quote}"</p>
+                    <h2 className="text-xl text-white font-semibold mb-2">{friend.user.name}</h2>
+                    <p className="text-sm text-blue-200 mb-2">Y-{`${friend.user.rollNumber}`.slice(0, 2)}</p>
+                    <p className="text-sm italic text-white">"{friend.quote}"</p>
                   </div>
                 </div>
               </SortableItem>
             ))}
-            {friendQuotes.map((friend) => (
+            {/* {friendQuotes.map((friend) => (
               <SortableItem key={friend._id}>
                 <div 
                   // layout
@@ -213,7 +234,7 @@ const Friends = () => {
                   </div>
                 </div>
               </SortableItem>
-            ))}
+            ))} */}
           </SortableList>
         </AnimatePresence>
       </main>

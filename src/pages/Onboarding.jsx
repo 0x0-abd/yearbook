@@ -44,6 +44,10 @@ const OnboardingPopups = () => {
     }
   };
 
+  // useEffect(() => {
+  //   if(user) setOriginalImage(user.photoURL)
+  // }, [user])
+
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);

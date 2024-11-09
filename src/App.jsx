@@ -3,7 +3,7 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { sendAuthenticatedRequest } from './lib/firebaseUtils';
 import { AnimatePresence, } from "framer-motion";
-import { useLocation, useRoutes, Link } from "react-router-dom";
+import { useLocation, useRoutes, Link, useNavigate } from "react-router-dom";
 import { UserContext } from './config/userContext';
 import Home from './pages/Home';
 import OnboardingPopups from './pages/Onboarding';
@@ -17,6 +17,7 @@ import QuoteDetails from './assets/QuoteDetails';
 function App() {
   const { user, setUser } = useContext(UserContext);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
 
   const allowedDomain = '@lnmiit.ac.in';
@@ -56,20 +57,11 @@ function App() {
 
   if (!element) return null;
 
-  const handleGoogleLogout = async () => {
-    try {
-      await signOut(auth);
-      setUser(null);
-      console.log('User signed out');
-    } catch (error) {
-      console.error('Sign Out Error:', error);
-    }
-  };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       // console.log(user.photoURL);
-      if (user && user.email.endsWith(allowedDomain)) {
+      if (user && (user.email.endsWith(allowedDomain))) {
+        // console.log("sending main page login req");
         const accountDetails = await publicRequest.get('/api/login');
         setUser({
           name: user.displayName,
@@ -78,6 +70,12 @@ function App() {
           quote: accountDetails.data.quote,
           friends: accountDetails.data.user.friends
         });
+        if (accountDetails.data.verified) {
+          navigate('/yearbook')
+        } else {
+          navigate('/onboarding')
+        }
+        // console.log('Google User:', accountDetails.data);
         // console.log(accountDetails);
         // console.log(location.pathname + " " + isYearbookRoute)
       } else {
@@ -87,15 +85,15 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  const getAuthData = async () => {
-    try {
-      // console.log(user)
-      const result = await sendAuthenticatedRequest('http://localhost:8080/api/home');
-      console.log(result);
-    } catch (err) {
-      setError(err.message);
-    }
-  }
+  // const getAuthData = async () => {
+  //   try {
+  //     // console.log(user)
+  //     const result = await sendAuthenticatedRequest('http://localhost:8080/api/home');
+  //     console.log(result);
+  //   } catch (err) {
+  //     setError(err.message);
+  //   }
+  // }
 
   return (
     <>

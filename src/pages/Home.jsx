@@ -1,6 +1,6 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import { motion, useIsPresent } from 'framer-motion';
-import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { UserContext } from '../config/userContext';
 import { Button } from '../components/ui/button';
@@ -32,32 +32,43 @@ const Home = () => {
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const userData = result.user;
-      if (userData.email.endsWith(allowedDomain)) {
-        setError('');
-        const accountDetails = await publicRequest.get('/api/login');
-        console.log(accountDetails.data);
-        setUser({
-          name: userData.displayName,
-          email: userData.email,
-          photoURL: accountDetails.data.user.photoURL,
-          quote: accountDetails.data.quote,
-          friends: accountDetails.data.friends
-        });
-        if(accountDetails.data.verified) {
-          navigate('/yearbook')
-        } else {
-          navigate('/onboarding')
-        }
-        // console.log('Google User:', userData);
-        
-      } else {
-        await signOut(auth);
-        setError(`Sign-in allowed only College mail ids ending with: ${allowedDomain}`);
-      }
+      // const userData = result.user;
+      // if (userData.email.endsWith(allowedDomain) || true) {
+      //   setError('');
+      //   console.log("sending login req")
+      //   const accountDetails = await publicRequest.get('/api/login');
+      //   console.log(accountDetails.data);
+      //   setUser({
+      //     name: userData.displayName,
+      //     email: userData.email,
+      //     photoURL: accountDetails.data.user.photoURL,
+      //     quote: accountDetails.data.quote,
+      //     friends: accountDetails.data.user.friends
+      //   });
+      //   if (accountDetails.data.verified) {
+      //     navigate('/yearbook')
+      //   } else {
+      //     navigate('/onboarding')
+      //   }
+      //   // console.log('Google User:', userData);
+
+      // } else {
+      //   await signOut(auth);
+      //   setError(`Sign-in allowed only College mail ids ending with: ${allowedDomain}`);
+      // }
     } catch (error) {
       console.error('Google Login Error:', error);
       setError('Sign in with college id only');
+    }
+  };
+
+  const handleGoogleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      console.log('User signed out');
+    } catch (error) {
+      console.error('Sign Out Error:', error);
     }
   };
 
@@ -71,10 +82,10 @@ const Home = () => {
             <stop offset="100%" stopColor="rgba(200,100,255,0.1)" />
           </linearGradient>
         </defs>
-        
+
         {/* Base layer with gradient */}
         <rect width="100%" height="100%" fill="url(#grad1)" />
-        
+
         {/* Scattered and animated tech elements */}
         <motion.path
           cx="15%"
@@ -96,7 +107,7 @@ const Home = () => {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{ duration: 2, delay: 1, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
         />
-        
+
         <motion.circle
           cx="15%"
           cy="25%"
@@ -140,7 +151,7 @@ const Home = () => {
           }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
-        
+
         {/* Digital nodes with connections */}
         <g>
           <motion.circle cx="10%" cy="20%" r="2" fill="rgba(100,200,255,0.5)"
@@ -186,19 +197,30 @@ const Home = () => {
         >
           "An odyssey of sleepless nights, endless codes, and boundless dreams."
         </motion.p>
-        
+
         <motion.div
           variants={fadeIn}
           className="mb-8 flex flex-col items-center justify-center"
         >
-          <Button
-            className="bg-purple-200 hover:bg-purple-300 text-gray-800 font-bold py-3 px-6 rounded-full flex items-center space-x-2 shadow-lg transform hover:scale-105 transition-transform duration-200"
-            onClick={handleGoogleLogin}
-          >
-            <GoogleIcon />
-            <span className="text-2xl">Sign in with College Account</span>
-            
-          </Button>
+          {!user ? (
+            <Button
+              className="bg-purple-200 hover:bg-purple-300 text-gray-800 font-bold py-3 px-6 rounded-full flex items-center space-x-2 shadow-lg transform hover:scale-105 transition-transform duration-200"
+              onClick={handleGoogleLogin}
+            >
+              <GoogleIcon />
+              <span className="text-2xl">Sign in with College Account</span>
+
+            </Button>
+          ) : (
+            <Button
+              className="bg-red-200 hover:bg-red-300 text-gray-800 font-bold py-3 px-6 rounded-full flex items-center space-x-2 shadow-lg transform hover:scale-105 transition-transform duration-200"
+              onClick={handleGoogleLogout}
+            >
+              <GoogleIcon />
+              <span className="text-2xl">Sign Out</span>
+
+            </Button>
+          )}
           {error && <span className="text-md text-red-500 my-2">{error}</span>}
         </motion.div>
 

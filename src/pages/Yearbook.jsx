@@ -10,14 +10,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu"
-import { sendAuthenticatedRequest } from '../lib/firebaseUtils';
 import { UserContext } from '../config/userContext';
 import { publicRequest } from '../config/publicRequest';
 
 function Yearbook() {
   const isPresent = useIsPresent();
   const { user, setUser } = useContext(UserContext);
-  const [quotes, setQuotes] = useState();
+  const [quotes, setQuotes] = useState([]);
   const [selectedYear, setSelectedYear] = useState('All');
   const [searchText, setSearchText] = useState('');
   const [friends, setFriends] = useState([
@@ -30,8 +29,8 @@ function Yearbook() {
   ]);
 
   const filteredFriends = selectedYear === 'All'
-    ? friends.filter(friend => friend.name.toLowerCase().includes(searchText.toLowerCase()))
-    : friends.filter(friend => friend.year === selectedYear && friend.name.toLowerCase().includes(searchText.toLowerCase()));
+    ? quotes.filter(friend => friend.user.name.toLowerCase().includes(searchText.toLowerCase()))
+    : quotes.filter(friend => friend.user.rollNumber === selectedYear && friend.user.name.toLowerCase().includes(searchText.toLowerCase()));
 
   const handleYearSelect = (year) => {
     setSelectedYear(year);
@@ -45,33 +44,24 @@ function Yearbook() {
   };
 
   const sortFriends = (type) => {
-    let sortedFriends = [...friends];
+    let sortedFriends = [...quotes];
     switch (type) {
       case 'nameAsc':
-        sortedFriends.sort((a, b) => a.name.localeCompare(b.name));
+        sortedFriends.sort((a, b) => a.user.name.localeCompare(b.user.name));
         break;
       case 'nameDesc':
-        sortedFriends.sort((a, b) => b.name.localeCompare(a.name));
+        sortedFriends.sort((a, b) => b.user.name.localeCompare(a.user.name));
         break;
       case 'yearAsc':
-        sortedFriends.sort((a, b) => a.year.localeCompare(b.year));
+        sortedFriends.sort((a, b) => a.user.rollNumber.localeCompare(b.user.rollNumber));
         break;
       case 'yearDesc':
-        sortedFriends.sort((a, b) => b.year.localeCompare(a.year));
+        sortedFriends.sort((a, b) => b.user.rollNumber.localeCompare(a.user.rollNumber));
         break;
       default:
         break;
     }
-    setFriends(sortedFriends);
-  }
-
-  const getAuthData = async () => {
-    try {
-      const result = await sendAuthenticatedRequest('http://localhost:8080/api/home'); // Your backend endpoint
-      console.log(result);
-    } catch (err) {
-      setError(err.message);
-    }
+    setQuotes(sortedFriends);
   }
 
   useEffect(() => {
@@ -91,7 +81,7 @@ function Yearbook() {
 
   const displayQuote = (quote) => {
     // console.log(quote.length)
-    if(quote.length > 80) return quote.slice(0, 80) + "...";
+    if (quote.length > 80) return quote.slice(0, 80) + "...";
     else return quote;
   }
 
@@ -163,27 +153,29 @@ function Yearbook() {
 
           <AnimatePresence>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2">
-              {filteredFriends.map((friend) => (
+              {quotes && filteredFriends.map((quote) => (
                 <motion.div
-                  key={friend.id}
+                  key={quote._id}
                   layout
                   initial={{ opacity: 0.5, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-gray-800 text-center bg-opacity-50 p-4 m-2 rounded-xl shadow-xl border border-blue-300 border-opacity-30"
+                  className="bg-gray-800 text-center bg-opacity-50 m-2  rounded-xl shadow-xl border border-blue-300 border-opacity-30"
                 >
-                  <img
-                    src={`/api/placeholder/150/150`}
-                    alt={friend.name}
-                    className="w-20 h-20 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
-                  />
-                  <h2 className="text-xl font-semibold mb-2">{friend.name}</h2>
-                  <p className="text-sm text-blue-200 mb-2">{friend.year}</p>
-                  <p className="text-sm italic">"{displayQuote(friend.quote)}"</p>
+                  <Link to={`/yearbook/${quote.user.rollNumber}`} key={quote._id} className="block p-4 rounded-xl">
+                    <img
+                      src={quote.user.photoURL}
+                      alt={quote.user.name}
+                      className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
+                    />
+                    <h2 className="text-xl font-semibold mb-2">{quote.user.name}</h2>
+                    <p className="text-sm text-blue-200 mb-2">Y-{`${quote.user.rollNumber}`.slice(0, 2)}</p>
+                    <p className="text-sm italic">"{displayQuote(quote.quote)}"</p>
+                  </Link>
                 </motion.div>
               ))}
-              {quotes && quotes.map((quote) => (
+              {/* {quotes && quotes.map((quote) => (
                 // <Link to={`/yearbook/${quote.user.rollNumber}`} key={quote._id} className=''> 
                 <motion.div
                   key={quote._id}
@@ -206,7 +198,7 @@ function Yearbook() {
                   </Link>
                 </motion.div>
 
-              ))}
+              ))} */}
             </div>
           </AnimatePresence>
         </main>
