@@ -1,7 +1,7 @@
 import axios from "axios";
 import { auth } from "../config/firebase";
 
-const BASE_URL = "https://odyssey-hyxqz5ere-abhyudays-projects.vercel.app/";
+const BASE_URL = "https://odyssey-iota-vert.vercel.app/";
 // const TOKEN =
 //   JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
 //     .accessToken || "";
