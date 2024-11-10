@@ -98,9 +98,9 @@ function Yearbook() {
         {/* Navbar */}
 
         {/* Main content */}
-        <main className="container mx-auto p-4">
+        <main className="container mx-auto p-2 md:p-4">
           <div className="md:flex lg:flex justify-between text-center items-center mb-8">
-            <h1 className="text-4xl font-bold mb-2">Yearbook</h1>
+            <h1 className="text-2xl md:text-4xl font-bold mb-2">Yearbook</h1>
             <div className="flex items-center space-x-2 justify-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -129,7 +129,7 @@ function Yearbook() {
               </DropdownMenu>
               <div className="relative w-64">
                 <Input
-                  className='max-w-sm text-lg border-sky-600  bg-sky-800 text-white placeholder:text-gray-100 hover:bg-sky-700 hover:border-sky-500'
+                  className='max-w-sm text-md md:text-lg border-sky-600  bg-sky-800 text-white placeholder:text-gray-100 hover:bg-sky-700 hover:border-sky-500'
                   placeholder="Search..."
                   value={searchText}
                   onChange={handleSearchTextChange}
@@ -167,7 +167,7 @@ function Yearbook() {
                     <img
                       src={quote.user.photoURL}
                       alt={quote.user.name}
-                      className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
+                      className="w-20 h-20 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
                     />
                     <h2 className="text-xl font-semibold mb-2">{quote.user.name}</h2>
                     <p className="text-sm text-blue-200 mb-2">Y-{`${quote.user.rollNumber}`.slice(0, 2)}</p>

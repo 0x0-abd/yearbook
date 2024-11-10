@@ -107,13 +107,13 @@ const Friends = () => {
       {/* Navbar */}
 
       {/* Main content */}
-      <main className="container mx-auto p-4">
+      <main className="container mx-auto p-2 md:p-4">
         <div className="md:flex justify-between text-center items-center mb-8">
-          <h1 className="text-4xl font-bold mb-2">Friends</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-2">Friends</h1>
           <div className="flex items-center justify-center space-x-2">
-            <button onClick={checkOrder} className='p-2 bg-purple-600 text-white rounded-md text-lg'>
+            {/* <button onClick={checkOrder} className='p-2 bg-purple-600 text-white rounded-md text-md md:text-lg'>
               Save
-            </button>
+            </button> */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="p-2 bg-sky-800 text-white border-2 border-sky-600 hover:bg-sky-700 hover:border-sky-500">
@@ -141,7 +141,7 @@ const Friends = () => {
             </DropdownMenu>
             <div className="relative w-64">
               <Input
-                className='max-w-sm text-lg border-sky-600  bg-sky-800 text-white placeholder:text-gray-100 hover:bg-sky-700 hover:border-sky-500'
+                className='max-w-sm text-md md:text-lg border-sky-600  bg-sky-800 text-white placeholder:text-gray-100 hover:bg-sky-700 hover:border-sky-500'
                 placeholder="Search friends..."
                 value={searchText}
                 onChange={handleSearchTextChange}
@@ -200,7 +200,7 @@ const Friends = () => {
                     <img
                       src={friend.user.photoURL}
                       alt={friend.name}
-                      className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
+                      className="w-20 h-20 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
                       draggable="false"
                     />
                     <h2 className="text-xl text-white font-semibold mb-2">{friend.user.name}</h2>
