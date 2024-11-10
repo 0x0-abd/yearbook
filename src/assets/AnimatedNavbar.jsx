@@ -66,7 +66,7 @@ export default function AnimatedTabs() {
                                 <button 
                                     ref={buttonRef}
                                     onClick={handleYearbookClick}
-                                    className={`${showYearDropdown ? " bg-sky-500 bg-opacity-40" : "hover:opacity-50"} yearbook-button duration-300 text-xl rounded-full px-3 py-1.5 font-medium text-white outline-2 outline-sky-400 focus-visible:outline lg:text-2xl lg:px-5`}
+                                    className={`${showYearDropdown ? " bg-sky-500 bg-opacity-40" : "hover:opacity-50"} yearbook-button duration-300 text-[18px] rounded-full px-3 py-1.5 font-medium text-white outline-2 outline-sky-400 focus-visible:outline lg:text-2xl lg:px-5`}
                                 >
                                     {tab.label}
                                 </button>
@@ -74,7 +74,7 @@ export default function AnimatedTabs() {
                                 // Other tabs as links
                                 <Link to={`/${tab.id}`}>
                                     <button
-                                        className={`${activeTab === tab.id ? " bg-sky-500 bg-opacity-40" : "hover:opacity-50"} duration-300 text-xl rounded-full px-3 py-1.5 font-medium text-white outline-2 outline-sky-400 focus-visible:outline lg:text-2xl lg:px-5`}
+                                        className={`${activeTab === tab.id ? " bg-sky-500 bg-opacity-40" : "hover:opacity-50"} duration-300 text-[18px] rounded-full px-3 py-1.5 font-medium text-white outline-2 outline-sky-400 focus-visible:outline lg:text-2xl lg:px-5`}
                                     >
                                         {tab.label}
                                     </button>

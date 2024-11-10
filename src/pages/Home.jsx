@@ -187,15 +187,16 @@ const Home = () => {
       >
         <motion.h1
           variants={fadeIn}
-          className="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg"
+          className="text-3xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg"
         >
           Digital Yearbook 📔
         </motion.h1>
         <motion.p
           variants={fadeIn}
-          className="text-xl text-blue-200 mb-8 max-w-2xl mx-auto"
+          className="text-base md:text-xl text-blue-200 mb-8 max-w-2xl mx-auto"
         >
-          "An odyssey of sleepless nights, endless codes, and boundless dreams."
+          "An odyssey of sleepless nights, endless codes,
+           and boundless dreams."
         </motion.p>
 
         <motion.div
@@ -204,11 +205,11 @@ const Home = () => {
         >
           {!user ? (
             <Button
-              className="bg-purple-200 hover:bg-purple-300 text-gray-800 font-bold py-3 px-6 rounded-full flex items-center space-x-2 shadow-lg transform hover:scale-105 transition-transform duration-200"
+              className="bg-purple-200 hover:bg-purple-300 text-gray-800 font-bold py-3 px-3 rounded-full flex items-center space-x-2 shadow-lg transform hover:scale-105 transition-transform duration-200"
               onClick={handleGoogleLogin}
             >
               <GoogleIcon />
-              <span className="text-2xl">Sign in with College Account</span>
+              <span className="text-xl md:text-2xl">Sign in with College Account</span>
 
             </Button>
           ) : (
@@ -237,7 +238,7 @@ const Home = () => {
               <img
                 src={`/api/placeholder/150/150`}
                 alt={`Graduate ${index}`}
-                className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
+                className="w-20 h-20 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
               />
               <p className="text-sm text-blue-200 italic">
                 "Innovation distinguishes between a leader and a follower."
