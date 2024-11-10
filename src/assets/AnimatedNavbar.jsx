@@ -61,7 +61,7 @@ export default function AnimatedTabs() {
                 <div className="flex rounded-full backdrop-blur-xl fixed space-x-1 z-30 top-4 lg:space-x-4 ">
                     {tabs.map((tab) => (
                         <div key={tab.id} className="relative">
-                            {tab.id === "yearbook" ? (
+                            {tab.id === "keepingitforlater" ? (
                                 // Yearbook as a button to toggle dropdown
                                 <button 
                                     ref={buttonRef}
@@ -81,7 +81,7 @@ export default function AnimatedTabs() {
                                 </Link>
                             )}
                             {/* Render dropdown for Yearbook when it's clicked */}
-                            {tab.id === "yearbook" && showYearDropdown && (
+                            {tab.id === "keepingitforlater" && showYearDropdown && (
                                 <div ref={dropdownRef} style={{ width: buttonWidth }} className="absolute left-0 mt-2 w-48 backdrop-blur-lg bg-sky-800 bg-opacity-90 rounded-lg shadow-lg z-40 lg:text-md">
                                     <ul className="py-2 text-white">
                                         <li>
