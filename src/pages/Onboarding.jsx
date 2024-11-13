@@ -19,7 +19,7 @@ const OnboardingPopups = () => {
   const [profilePictureFile, setProfilePictureFile] = useState(null);
   const [originalImage, setOriginalImage] = useState(null);
   const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [quote, setQuote] = useState('');
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -132,7 +132,8 @@ const OnboardingPopups = () => {
     }
     formData.append('name', name);
     formData.append('email', user.email);
-    formData.append('description', description);
+    // formData.append('quote', user.quote);
+    // formData.append('description', description);
     // for (let pair of formData.entries()) {
     //   console.log(`${pair[0]}:`, pair[1]);
     // }
@@ -144,6 +145,13 @@ const OnboardingPopups = () => {
       });
 
       if (response.data.status === 'success') {
+        if(quote!==user.quote) {
+          const quote_response = await publicRequest.post(`/api/quote`, {
+            email: user.email,
+            quote
+          })
+          if(quote_response.data.status === 'ok') setUser((prev) => ({ ...prev, quote }))
+        }
         // console.log(response.data)
         setUser((prev) => ({
           ...prev,
@@ -169,8 +177,8 @@ const OnboardingPopups = () => {
   useEffect(() => {
     if (user && user.name) {
       setName(user.name);
-      if (user.description) {
-        setDescription(user.description);
+      if (user.quote) {
+        setQuote(user.quote);
       }
     }
   }, [user]);
@@ -292,16 +300,16 @@ const OnboardingPopups = () => {
               exit="exit"
               className=" bg-gray-800 bg-opacity-50 border-blue-800 border-2 p-6 rounded-lg shadow-lg w-96"
             >
-              <h2 className="text-2xl font-bold mb-4">Description (Optional)</h2>
+              <h2 className="text-2xl font-bold mb-4">Quote</h2>
               <Textarea
                 placeholder="Tell us about yourself"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={quote}
+                onChange={(e) => setQuote(e.target.value)}
                 className="bg-sky-500 bg-opacity-25 mb-4 text-xl"
               />
               <div className="flex gap-2">
                 <Button onClick={handleBack} variant="outline" className="flex-1  text-white bg-transparent">Back</Button>
-                <Button onClick={handleSkip} variant="outline" className="flex-1 text-white bg-blue-600 bg-opacity-50">Skip</Button>
+                {/* <Button onClick={handleSkip} variant="outline" className="flex-1 text-white bg-blue-600 bg-opacity-50">Skip</Button> */}
                 <Button onClick={handleSubmit} className="flex-1">Finish</Button>
               </div>
             </motion.div>
@@ -322,7 +330,7 @@ const OnboardingPopups = () => {
                 <img src={profilePicture} alt="Profile" className="w-48 h-48 object-cover rounded-full mx-auto" />
               </div>
               <p className="mt-4">Name: {name}</p>
-              {description && <p className="mt-2">Description: {description}</p>}
+              {quote && <p className="mt-2">Quote: {quote}</p>}
             </motion.div>
           )}
           {step === 5 && (
