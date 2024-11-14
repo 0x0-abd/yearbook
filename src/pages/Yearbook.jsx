@@ -12,6 +12,7 @@ import {
 } from "../components/ui/dropdown-menu"
 import { UserContext } from '../config/userContext';
 import { publicRequest } from '../config/publicRequest';
+import axios from 'axios';
 
 function Yearbook() {
   const isPresent = useIsPresent();
@@ -67,7 +68,7 @@ function Yearbook() {
   useEffect(() => {
     const getQuotes = async () => {
       try {
-        const res = await publicRequest.get('/api/quote');
+        const res = await axios.get('https://odyssey-iota-vert.vercel.app/api/quote');
         // console.log(res.data.data);
         if (res.data.status === 'success') setQuotes(res.data.data);
         else console.log(res.data);

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { motion, useIsPresent } from 'framer-motion';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
@@ -10,52 +10,55 @@ import { publicRequest } from '../config/publicRequest';
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext);
+  const [ quotes, setQuotes ] = useState([]);
   const [error, setError] = useState('');
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const isPresent = useIsPresent();
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.2, // Lengthen the animation duration
+        ease: "easeOut", // Use easing for a smoother effect
+      },
+    },
   };
 
   const stagger = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
+      opacity: 1,
+      y: 0,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        delayChildren: 0.3, // Delays children to start after parent animation
+        staggerChildren: 0.2, // Space out child animations
+      },
+    },
   };
 
-  const allowedDomain = '@lnmiit.ac.in';
+  useEffect(() => {
+    const getQuotes = async () => {
+      try {
+        const res = await publicRequest.get('/api/quote');
+        // console.log(res.data.data);
+        if (res.data.status === 'success') {
+          console.log(res.data)
+          setQuotes(res.data.data);
+        }
+        else console.log(res.data);
+      } catch (err) {
+        console.error("Error occured: " + err)
+      }
+    }
+    getQuotes();
+  }, []);
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      // const userData = result.user;
-      // if (userData.email.endsWith(allowedDomain) || true) {
-      //   setError('');
-      //   console.log("sending login req")
-      //   const accountDetails = await publicRequest.get('/api/login');
-      //   console.log(accountDetails.data);
-      //   setUser({
-      //     name: userData.displayName,
-      //     email: userData.email,
-      //     photoURL: accountDetails.data.user.photoURL,
-      //     quote: accountDetails.data.quote,
-      //     friends: accountDetails.data.user.friends
-      //   });
-      //   if (accountDetails.data.verified) {
-      //     navigate('/yearbook')
-      //   } else {
-      //     navigate('/onboarding')
-      //   }
-      //   // console.log('Google User:', userData);
-
-      // } else {
-      //   await signOut(auth);
-      //   setError(`Sign-in allowed only College mail ids ending with: ${allowedDomain}`);
-      // }
+      await signInWithPopup(auth, provider);
     } catch (error) {
       console.error('Google Login Error:', error);
       setError('Sign in with college id only');
@@ -228,20 +231,29 @@ const Home = () => {
         <motion.div
           variants={stagger}
           className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          style={{ minHeight: '500px' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
         >
-          {[1, 2, 3, 4, 5, 6].map((index) => (
+          {quotes.length > 0 && 
+          quotes
+          .sort(()=>0.5-Math.random())
+          .slice(0, 6)
+          .map((a) => (
             <motion.div
-              key={index}
+              key={a._id}
               variants={fadeIn}
               className="bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg p-6 rounded-xl shadow-xl border border-blue-300 border-opacity-30"
             >
               <img
-                src={`/api/placeholder/150/150`}
-                alt={`Graduate ${index}`}
+                src={a.user.photoURL}
+                alt={`Y-${a.user.rollNumber.slice(0, 2)}`}
                 className="w-20 h-20 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-cyan-300 shadow-md"
               />
+              <h2 className="text-xl font-semibold mb-2 text-white">{a.user.name}</h2>
               <p className="text-sm text-blue-200 italic">
-                "Innovation distinguishes between a leader and a follower."
+                {a.quote}
               </p>
             </motion.div>
           ))}
