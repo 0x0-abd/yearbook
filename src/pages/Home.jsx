@@ -77,7 +77,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex flex-col items-center justify-center p-2 pt-20 relative overflow-hidden md:p-4 md:pt-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex flex-col items-center justify-center p-4 pt-20 relative overflow-hidden md:p-4 md:pt-20">
       {/* Scattered and animated tech-inspired background */}
       <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -213,7 +213,7 @@ const Home = () => {
               onClick={handleGoogleLogin}
             >
               <GoogleIcon />
-              <span className="text-xl md:text-2xl">Sign in with College Account</span>
+              <span className="text-lg md:text-2xl">Sign in with College Account</span>
 
             </Button>
           ) : (
@@ -231,7 +231,7 @@ const Home = () => {
 
         <motion.div
           variants={stagger}
-          className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 max-w-4xl mx-auto"
           style={{ minHeight: `${quotes.length < 4 ? "250px" :  "500px"}` }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
