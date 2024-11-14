@@ -231,8 +231,9 @@ const Home = () => {
 
         <motion.div
           variants={stagger}
-          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 max-w-4xl mx-auto"
-          style={{ minHeight: `${quotes.length < 4 ? "250px" :  "500px"}` }}
+          className={`grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 max-w-4xl mx-auto
+            min-h-[400px]
+            ${quotes.length < 4 ? "md:min-h-[250px]" : "md:min-h-[500px]"} `}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}

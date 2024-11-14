@@ -105,7 +105,7 @@ function App() {
         // Render without animation for Yearbook routes
         React.cloneElement(element, { key: location.pathname })
       ) : (
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="wait">
           {React.cloneElement(element, { key: location.pathname })}
         </AnimatePresence>
       )}
