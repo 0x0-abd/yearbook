@@ -59,7 +59,7 @@ const QuoteForm = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-20">
+      <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-5 md:px-20">
         <div className="flex items-center justify-center">
           <div className="bg-gray-800 bg-opacity-50 border-blue-800 border-2 p-6 rounded-lg shadow-lg w-96">
             <div className="flex items-center justify-center space-x-2">
@@ -76,7 +76,7 @@ const QuoteForm = () => {
   if (!user) {
     return (
       <>
-        <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-20">
+        <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-5 md:px-20">
           <div className="flex items-center justify-center">
             <Alert variant="destructive" className="w-96">
               <AlertDescription>
@@ -98,7 +98,7 @@ const QuoteForm = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-20">
+      <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-5 md:px-20">
         <div className="flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div

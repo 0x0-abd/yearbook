@@ -90,7 +90,7 @@ function Yearbook() {
     <>
       <Outlet />
 
-      <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-2 md:px-10 lg:px-20">
+      <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white md:px-10 lg:px-20">
         {/* Animated background */}
         <svg className="fixed inset-0 -z-50 w-full h-full" xmlns="http://www.w3.org/2000/svg">
           {/* ... (background SVG code remains the same) ... */}
@@ -153,7 +153,7 @@ function Yearbook() {
           </div>
 
           <AnimatePresence>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-2">
               {quotes && filteredFriends.map((quote) => (
                 <motion.div
                   key={quote._id}

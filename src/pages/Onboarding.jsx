@@ -184,7 +184,7 @@ const OnboardingPopups = () => {
   }, [user]);
 
   return (
-    <div className='min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-20'>
+    <div className='min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-5 md:px-20'>
       <div className='mx-auto p-4 text-center'>
         <h1 className="text-4xl font-bold" onClick={() => console.log(user)}>Update Details</h1>
       </div>

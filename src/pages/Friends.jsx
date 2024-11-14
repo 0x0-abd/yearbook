@@ -98,7 +98,7 @@ const Friends = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-2 md:px-10 lg:px-20">
+    <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white md:px-10 lg:px-20">
       {/* Animated background */}
       <svg className="fixed inset-0 -z-50 w-full h-full" xmlns="http://www.w3.org/2000/svg">
         {/* ... (background SVG code remains the same) ... */}
@@ -184,7 +184,7 @@ const Friends = () => {
               </motion.div>
             ))} */}
           {/* <SortableList onSortEnd={onSortEnd} className="flex flex-wrap select-none" draggedItemClassName={"opacity:0"}> */}
-          <SortableList onSortEnd={onSortEnd2} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2" draggedItemClassName={"opacity:0"}>
+          <SortableList onSortEnd={onSortEnd2} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-2" draggedItemClassName={"opacity:0"}>
             {friends && filteredFriends.map((friend) => (
               <SortableItem key={friend._id}>
                 <div 

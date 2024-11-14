@@ -100,7 +100,7 @@ const Home = () => {
           fill="none"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+          transition={{ duration: 8, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
         />
         <motion.path
           d="M100 20 Q 75 70, 50 20 T 0 20"
@@ -132,7 +132,7 @@ const Home = () => {
             scale: [1, 1.1, 1],
             opacity: [0.5, 1, 0.5],
           }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.rect
           x="70%"
@@ -160,20 +160,20 @@ const Home = () => {
         <g>
           <motion.circle cx="10%" cy="20%" r="2" fill="rgba(100,200,255,0.5)"
             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            transition={{ duration: 10, repeat: Infinity }}
           />
           <motion.circle cx="20%" cy="75%" r="2" fill="rgba(200,100,255,0.5)"
             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, delay: 0.5, repeat: Infinity }}
+            transition={{ duration: 10, delay: 0.5, repeat: Infinity }}
           />
           <motion.circle cx="50%" cy="50%" r="2" fill="rgba(255,200,100,0.5)"
             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, delay: 1, repeat: Infinity }}
+            transition={{ duration: 8, delay: 1, repeat: Infinity }}
           />
           <motion.line x1="70%" y1="20%" x2="50%" y2="50%" stroke="rgba(150,150,255,0.2)" strokeWidth="0.5"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+            transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
           />
           <motion.line x1="85%" y1="15%" x2="50%" y2="50%" stroke="rgba(150,150,255,0.2)" strokeWidth="0.5"
             initial={{ pathLength: 0 }}
@@ -240,7 +240,7 @@ const Home = () => {
           {quotes.length > 0 && 
           quotes
           .sort(()=>0.5-Math.random())
-          .slice(0, 9)
+          .slice(0, 6)
           .map((a) => (
             <motion.div
               key={a._id}
