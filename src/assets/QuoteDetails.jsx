@@ -35,7 +35,7 @@ const AnimatedModal = ({ onClose, children }) => {
         <AnimatePresence>
             {(
                 <motion.div
-                    className="fixed inset-0 flex items-center justify-center backdrop-blur bg-indigo-300 bg-opacity-30 z-10 pt-20 pb-10"
+                    className="fixed inset-0 flex items-center justify-center backdrop-blur bg-indigo-300 bg-opacity-30 z-10 lg:pt-20 lg:pb-10"
                     onClick={onClose}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -92,8 +92,8 @@ const QuoteDetails = () => {
                 console.error(err)
             }
         }
-        if (user) getData();
-    }, [user])
+        getData();
+    }, [])
 
     useEffect(() => {
         // if(user && quote) {
@@ -139,14 +139,14 @@ const QuoteDetails = () => {
     return (
         <>
             <AnimatedModal onClose={() => navigate(-1)} >
-                {quote && user &&
+                {quote &&
                     <div className='flex flex-col h-5/6 md:h-[550px] md:flex-row overflow-y-auto'>
                         <div className="space-y-4 h-full flex flex-col items-center rounded-l-3xl bg-black bg-opacity-40 justify-center border-blue-200 border-r-2 border-opacity-30">
 
                             <img
                                 src={quote.user.photoURL}
                                 alt={quote.user.name}
-                                className=" w-96 h-96 mx-auto  shadow-md"
+                                className="w-72 h-72 lg:w-96 lg:h-96 mx-auto  shadow-md"
                             />
                             <p className="text-sm italic text-white">"{quote.quote}"</p>
                             <div className='flex w-full justify-around pb-2'>
@@ -156,7 +156,7 @@ const QuoteDetails = () => {
                                 >
                                     Close
                                 </button>
-                                {!isFriend ? (
+                                {user && (!isFriend ? (
                                     <button
                                         onClick={addFriend}
                                         className='px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-teal-700 transition-colors duration-100'
@@ -170,7 +170,7 @@ const QuoteDetails = () => {
                                     >
                                         Remove Friend
                                     </button>
-                                )}
+                                ))}
                             </div>
                         </div>
                         <CommentsSection quote={quote} user={user} setQuote={setQuote} />
@@ -224,7 +224,7 @@ const CommentsSection = ({ quote, user, setQuote }) => {
     };
 
     return (
-        <div className="p-4 h-full max-w-md">
+        <div className="p-4 h-full max-w-md md:min-w-72 lg:min-w-80">
             <h2 className="text-xl font-semibold mb-2 pb-1 w-full text-white border-blue-200 border-opacity-30 border-b-2">
                 {quote.user.name}
                 <span className="text-xl mb-2 float-right text-white">
@@ -244,7 +244,7 @@ const CommentsSection = ({ quote, user, setQuote }) => {
                                 <p className="text-sm text-blue-200">{comment.comment}</p>
                             </div>
                         </div>
-                        <Button
+                        {user && (quote.user._id === user.id || comment.user._id === user.id) && (<Button
                             variant="ghost"
                             onClick={() => handleDeleteComment(comment._id)}
                             className="text-gray-400 hover:text-gray-600 mr-2"
@@ -257,14 +257,14 @@ const CommentsSection = ({ quote, user, setQuote }) => {
                                     clipRule="evenodd"
                                 />
                             </svg>
-                        </Button>
+                        </Button>)}
                     </div>
                 ))}
             </ScrollArea>
             {/* <div className="space-y-2">
 
             </div> */}
-            <div className="mt-2 flex items-center float-end border-blue-200 border-opacity-30 border-t-2 py-3 px-2">
+            {user ? (<div className="mt-2 flex items-center float-end border-blue-200 border-opacity-30 border-t-2 py-3 px-2">
                 <Avatar className='mr-3'>
                     <AvatarImage src={user.photoURL} />
                     <AvatarFallback>Your Avatar</AvatarFallback>
@@ -284,7 +284,10 @@ const CommentsSection = ({ quote, user, setQuote }) => {
                 <Button onClick={handleAddComment} className="ml-3">
                     Post
                 </Button>
-            </div>
+            </div>) : (
+                <div className='mt-2 flex items-center float-end border-blue-200 border-opacity-30 border-t-2 py-3 px-2 w-full'>
+                </div>
+            )}
         </div>
     );
 };

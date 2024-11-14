@@ -64,6 +64,7 @@ function App() {
         // console.log("sending main page login req");
         const accountDetails = await publicRequest.get('/api/login');
         setUser({
+          id: accountDetails.data.user._id,
           name: user.displayName,
           email: user.email,
           photoURL: accountDetails.data.user.photoURL,

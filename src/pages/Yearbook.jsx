@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu"
 import { UserContext } from '../config/userContext';
-import { publicRequest } from '../config/publicRequest';
+// import { publicRequest } from '../config/publicRequest';
 import axios from 'axios';
 
 function Yearbook() {
@@ -77,8 +77,8 @@ function Yearbook() {
       }
     }
 
-    if (user) getQuotes();
-  }, [user]);
+    getQuotes();
+  });
 
   const displayQuote = (quote) => {
     // console.log(quote.length)

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
+import { UserContext } from "../config/userContext";
 
 let tabs = [
     { id: "", label: "Home" },
@@ -10,6 +11,7 @@ let tabs = [
 ];
 
 export default function AnimatedTabs() {
+    const {user} = useContext(UserContext);
     const location = useLocation();
     const isBg = location.pathname === "/bg"
     let path = location.pathname.substring(1)
@@ -72,13 +74,13 @@ export default function AnimatedTabs() {
                                 </button>
                             ) : (
                                 // Other tabs as links
-                                <Link to={`/${tab.id}`}>
+                                (((tab.id === "onboarding" || tab.id ==="friends") ? user : true) && (<Link to={`/${tab.id}`}>
                                     <button
                                         className={`${activeTab === tab.id ? " bg-sky-500 bg-opacity-40" : "hover:opacity-50"} duration-300 text-[18px] rounded-full px-1 md:px-3 py-1.5 font-medium text-white outline-2 outline-sky-400 focus-visible:outline lg:text-2xl lg:px-5`}
                                     >
                                         {tab.label}
                                     </button>
-                                </Link>
+                                </Link>))
                             )}
                             {/* Render dropdown for Yearbook when it's clicked */}
                             {tab.id === "keepingitforlater" && showYearDropdown && (

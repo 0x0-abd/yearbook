@@ -6,7 +6,8 @@ import { UserContext } from '../config/userContext';
 import { Button } from '../components/ui/button';
 import GoogleIcon from '../assets/GoogleIcon';
 import { useNavigate } from 'react-router-dom';
-import { publicRequest } from '../config/publicRequest';
+// import { publicRequest } from '../config/publicRequest';
+import axios from "axios"
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext);
@@ -42,10 +43,10 @@ const Home = () => {
   useEffect(() => {
     const getQuotes = async () => {
       try {
-        const res = await publicRequest.get('/api/quote');
-        // console.log(res.data.data);
+        const res = await axios.get('https://odyssey-iota-vert.vercel.app/api/quote');
+        // console.log(res);
         if (res.data.status === 'success') {
-          console.log(res.data)
+          // console.log(res.data)
           setQuotes(res.data.data);
         }
         else console.log(res.data);
@@ -239,7 +240,7 @@ const Home = () => {
           {quotes.length > 0 && 
           quotes
           .sort(()=>0.5-Math.random())
-          .slice(0, 6)
+          .slice(0, 9)
           .map((a) => (
             <motion.div
               key={a._id}
