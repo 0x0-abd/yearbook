@@ -186,7 +186,7 @@ const OnboardingPopups = () => {
   return (
     <div className='min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-20'>
       <div className='mx-auto p-4 text-center'>
-        <h1 className="text-4xl font-bold" onClick={() => console.log(user)}>Welcome</h1>
+        <h1 className="text-4xl font-bold" onClick={() => console.log(user)}>Update Details</h1>
       </div>
       <div className="flex items-center justify-center">
         <AnimatePresence mode="wait">
@@ -338,7 +338,7 @@ const OnboardingPopups = () => {
               onComplete={() => {
                 setTimeout(() => {
                   navigate('/yearbook'); // Replace with your target route
-                }, 3000);
+                }, 1500);
               }}
             />
           )}

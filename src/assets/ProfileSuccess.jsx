@@ -6,7 +6,7 @@ const SuccessAnimation = ({ onComplete }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onComplete();
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -70,14 +70,14 @@ const SuccessAnimation = ({ onComplete }) => {
           className="text-2xl font-bold text-gray-100 mb-2"
           variants={textVariants}
         >
-          Profile Created Successfully!
+          Profile Updated Successfully!
         </motion.h2>
 
         <motion.p 
           className="text-gray-300 text-center"
           variants={textVariants}
         >
-          Redirecting you to your new profile...
+          Redirecting...
         </motion.p>
       </div>
     </motion.div>
