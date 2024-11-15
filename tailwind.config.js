@@ -4,7 +4,6 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 module.exports = {
   darkMode: ["class"],
   content: [
-    ,
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "app/**/*.{ts,tsx}",
@@ -67,7 +66,7 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ['"Inter"', ...fontFamily.sans], // Set Inter as the default sans-serif
       },
       keyframes: {
         "accordion-down": {
