@@ -1,25 +1,3 @@
-// import { useNavigate } from 'react-router-dom';
-
-
-// const QuoteDetails = () => {
-//   const navigate = useNavigate();
-
-//   return (
-//     <div
-//       className="fixed inset-0 flex items-center justify-center backdrop-blur-md bg-indigo-500 bg-opacity-10 z-10"
-//       onClick={() => navigate(-1)}  // Close modal on background click
-//     >
-//       <div className="modal-content bg-white p-8 rounded-lg" onClick={(e) => e.stopPropagation()}>
-//         {/* Modal content here */}
-//         <h2>Quote Details</h2>
-//         <p>Details about the selected quote...</p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default QuoteDetails;
-
 import React, { useContext, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -141,14 +119,14 @@ const QuoteDetails = () => {
             <AnimatedModal onClose={() => navigate(-1)} >
                 {quote &&
                     <div className='flex flex-col h-5/6 md:h-[550px] md:flex-row overflow-y-auto'>
-                        <div className="space-y-4 h-full flex flex-col items-center rounded-l-3xl bg-black bg-opacity-40 justify-center border-blue-200 border-r-2 border-opacity-30">
+                        <div className="space-y-4 h-full flex flex-col items-center rounded-l-3xl overflow-y-auto bg-black bg-opacity-40 justify-center border-blue-200 border-r-2 border-opacity-30 md:max-w-96">
 
                             <img
                                 src={quote.user.photoURL}
                                 alt={quote.user.name}
                                 className="w-72 h-72 lg:w-96 lg:h-96 mx-auto  shadow-md"
                             />
-                            <p className="text-sm italic text-white">"{quote.quote}"</p>
+                            <div className="text-sm italic p-1 text-white text-center">"{quote.quote}"</div>
                             <div className='flex w-full justify-around pb-2'>
                                 <button
                                     onClick={() => navigate(-1)}

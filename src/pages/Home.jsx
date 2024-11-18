@@ -40,6 +40,12 @@ const Home = () => {
     },
   };
 
+  const displayQuote = (quote) => {
+    // console.log(quote.length)
+    if (quote.length > 80) return quote.slice(0, 80) + "...";
+    else return quote;
+  };
+
   useEffect(() => {
     const getQuotes = async () => {
       try {
@@ -77,7 +83,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex flex-col items-center justify-center p-4 pt-20 relative overflow-hidden md:p-4 md:pt-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 animate-text via-blue-900 to-purple-900 flex flex-col items-center justify-center p-4 pt-20 relative overflow-hidden md:p-4 md:pt-20">
       {/* Scattered and animated tech-inspired background */}
       <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -255,7 +261,7 @@ const Home = () => {
               />
               <h2 className="text-xl font-semibold mb-2 text-white">{a.user.name}</h2>
               <p className="text-sm text-blue-200 italic">
-                {a.quote}
+                {displayQuote(a.quote)}
               </p>
             </motion.div>
           ))}

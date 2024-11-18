@@ -11,7 +11,7 @@ let tabs = [
 ];
 
 export default function AnimatedTabs() {
-    const {user} = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const location = useLocation();
     const isBg = location.pathname === "/bg"
     let path = location.pathname.substring(1)
@@ -59,13 +59,13 @@ export default function AnimatedTabs() {
 
     return (
         <>
-            <nav className={`z-10 flex w-full justify-center left-0 top-0 ${isBg ? "hidden" : ""}`}>
+            <nav className={`z-10 flex w-full justify-center items-center left-0 top-0`}>
                 <div className="flex rounded-full backdrop-blur-xl fixed space-x-1 z-30 top-4 lg:space-x-4 ">
                     {tabs.map((tab) => (
                         <div key={tab.id} className="relative">
                             {tab.id === "keepingitforlater" ? (
                                 // Yearbook as a button to toggle dropdown
-                                <button 
+                                <button
                                     ref={buttonRef}
                                     onClick={handleYearbookClick}
                                     className={`${showYearDropdown ? " bg-sky-500 bg-opacity-40" : "hover:opacity-50"} yearbook-button duration-300 text-[18px] rounded-full px-1 md:px-3 py-1.5 font-medium text-white outline-2 outline-sky-400 focus-visible:outline lg:text-2xl lg:px-5`}
@@ -74,7 +74,7 @@ export default function AnimatedTabs() {
                                 </button>
                             ) : (
                                 // Other tabs as links
-                                (((tab.id === "onboarding" || tab.id ==="friends") ? user : true) && (<Link to={`/${tab.id}`}>
+                                (((tab.id === "onboarding" || tab.id === "friends") ? user : true) && (<Link to={`/${tab.id}`}>
                                     <button
                                         className={`${activeTab === tab.id ? " bg-sky-500 bg-opacity-40" : "hover:opacity-50"} duration-300 text-[18px] rounded-full px-1 md:px-3 py-1.5 font-medium text-white outline-2 outline-sky-400 focus-visible:outline lg:text-2xl lg:px-5`}
                                     >
@@ -112,7 +112,16 @@ export default function AnimatedTabs() {
                         </div>
                     ))}
                 </div>
-
+                {/* <div className="flex rounded-full backdrop-blur-xl fixed space-x-1 z-30 top-4 right-2 lg:space-x-4">
+                    /* Sign In button
+                    <div className="relative">
+                        <Link to="/login">
+                            <button className="hover:opacity-50 duration-300 text-[18px] rounded-full px-1 md:px-3 py-1.5 font-medium text-white outline-2 outline-sky-400 focus-visible:outline lg:text-2xl lg:px-5">
+                                Sign In
+                            </button>
+                        </Link>
+                    </div>
+                </div>  */}
             </nav>
             {/* <div className="z-10 flex w-full justify-center left-0 top-0 pb-6 pt-6">
                 <div className="z-20 h-5 w-5 fixed rounded-full bg-red-500">Bleh</div>

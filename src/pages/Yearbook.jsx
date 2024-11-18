@@ -131,7 +131,7 @@ function Yearbook() {
     };
 
     getQuotes();
-  });
+  }, []);
 
   const displayQuote = (quote) => {
     // console.log(quote.length)

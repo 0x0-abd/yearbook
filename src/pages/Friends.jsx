@@ -97,6 +97,12 @@ const Friends = () => {
     }
   }
 
+  const displayQuote = (quote) => {
+    // console.log(quote.length)
+    if (quote.length > 80) return quote.slice(0, 80) + "...";
+    else return quote;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white md:px-10 lg:px-20">
       {/* Animated background */}
@@ -205,7 +211,7 @@ const Friends = () => {
                     />
                     <h2 className="text-xl text-white font-semibold mb-2">{friend.user.name}</h2>
                     <p className="text-sm text-blue-200 mb-2">Y-{`${friend.user.rollNumber}`.slice(0, 2)}</p>
-                    <p className="text-sm italic text-white">"{friend.quote}"</p>
+                    <p className="text-sm italic text-white">"{displayQuote(friend.quote)}"</p>
                   </div>
                 </div>
               </SortableItem>
