@@ -120,6 +120,7 @@ const OnboardingPopups = () => {
   const handleSubmit = async () => {
     // console.log('Submitted:', { profilePicture, name, description });
     // Here you would typically send this data to your backend
+    setStep(4);
     const formData = new FormData();
 
     if (profilePictureFile) {
@@ -182,6 +183,12 @@ const OnboardingPopups = () => {
       }
     }
   }, [user]);
+
+  useEffect(() => {
+    if(step === 2 && user.canPost) {
+      handleSubmit();
+    }
+  }, [step, user])
 
   return (
     <div className='min-h-screen bg-gradient-to-br pt-20 from-gray-900 via-blue-900 to-purple-900 text-white px-5 md:px-20'>
@@ -267,7 +274,7 @@ const OnboardingPopups = () => {
             </motion.div>
           )}
 
-          {step === 2 && (
+          {/* {step === 2 && (
             <motion.div
               key="step2"
               variants={popupVariants}
@@ -289,9 +296,9 @@ const OnboardingPopups = () => {
                 <Button onClick={handleNext} className="flex-1">Next</Button>
               </div>
             </motion.div>
-          )}
+          )} */}
 
-          {step === 3 && (
+          {step === 2 && (
             <motion.div
               key="step3"
               variants={popupVariants}

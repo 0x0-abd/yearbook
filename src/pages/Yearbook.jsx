@@ -285,11 +285,11 @@ function Yearbook() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="/quote">
+            {user.canPost && <Link to="/quote">
               <button
                 className={`flex items-center gap-2 px-4 py-2 rounded-full shadow-lg text-xl ${
                   user.quote
-                    ? " bg-yellow-500 hover:bg-amber-500"
+                    ? " bg-yellow-500 hover:bg-amber-500 hidden"
                     : "bg-green-500 hover:bg-green-600"
                 } text-white transition-colors`}
               >
@@ -305,7 +305,7 @@ function Yearbook() {
                   </>
                 )}
               </button>
-            </Link>
+            </Link>}
           </motion.div>
         )}
         <motion.div

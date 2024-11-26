@@ -69,7 +69,8 @@ function App() {
           email: user.email,
           photoURL: accountDetails.data.user.photoURL,
           quote: accountDetails.data.quote,
-          friends: accountDetails.data.user.friends
+          friends: accountDetails.data.user.friends,
+          canPost: accountDetails.data.canPost,
         });
         if (accountDetails.data.verified) {
           navigate('/yearbook')
