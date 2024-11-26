@@ -87,7 +87,7 @@ const Home = () => {
       {/* Scattered and animated tech-inspired background */}
       <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%" className="blur-sm">
             <stop offset="0%" stopColor="rgba(100,150,255,0.1)" />
             <stop offset="100%" stopColor="rgba(200,100,255,0.1)" />
           </linearGradient>
@@ -101,8 +101,9 @@ const Home = () => {
           cx="15%"
           cy="85%"
           d="M0 50 Q 25 0, 50 50 T 100 50"
-          stroke="rgba(100,200,255,0.2)"
+          stroke="rgba(100,200,255,0.5)"
           strokeWidth="0.5"
+          className="blur-sm"
           fill="none"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
@@ -110,8 +111,9 @@ const Home = () => {
         />
         <motion.path
           d="M100 20 Q 75 70, 50 20 T 0 20"
-          stroke="rgba(200,100,255,0.2)"
+          stroke="rgba(200,100,255,0.5)"
           strokeWidth="0.5"
+          className="blur-sm"
           fill="none"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
@@ -122,7 +124,8 @@ const Home = () => {
           cx="15%"
           cy="25%"
           r="20"
-          fill="rgba(100,200,255,0.05)"
+          fill="rgba(100,200,255,0.2)"
+          className="blur-sm"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.5, 1, 0.5],
@@ -133,7 +136,8 @@ const Home = () => {
           cx="85%"
           cy="75%"
           r="40"
-          fill="rgba(200,100,255,0.05)"
+          fill="rgba(200,100,255,0.2)"
+          className="blur-sm"
           animate={{
             scale: [1, 1.1, 1],
             opacity: [0.5, 1, 0.5],
@@ -145,7 +149,8 @@ const Home = () => {
           y="20%"
           width="60"
           height="60"
-          fill="rgba(150,150,255,0.05)"
+          fill="rgba(150,150,255,0.2)"
+          className="blur-sm"
           animate={{
             rotate: [0, 180, 360],
             opacity: [0.5, 1, 0.5],
@@ -154,7 +159,8 @@ const Home = () => {
         />
         <motion.polygon
           points="30,10 50,30 30,50 10,30"
-          fill="rgba(255,200,100,0.05)"
+          fill="rgba(255,200,100,0.2)"
+          className="blur-sm"
           animate={{
             rotate: 360,
             scale: [1, 1.2, 1],
@@ -164,24 +170,26 @@ const Home = () => {
 
         {/* Digital nodes with connections */}
         <g>
-          <motion.circle cx="10%" cy="20%" r="2" fill="rgba(100,200,255,0.5)"
+          <motion.circle cx="10%" cy="20%" r="2" fill="rgba(100,200,255,0.8)" className="blur-sm"
             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 10, repeat: Infinity }}
           />
-          <motion.circle cx="20%" cy="75%" r="2" fill="rgba(200,100,255,0.5)"
+          <motion.circle cx="20%" cy="75%" r="2" fill="rgba(200,100,255,0.8)" className="blur-sm"
             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 10, delay: 0.5, repeat: Infinity }}
           />
-          <motion.circle cx="50%" cy="50%" r="2" fill="rgba(255,200,100,0.5)"
+          <motion.circle cx="50%" cy="50%" r="2" fill="rgba(255,200,100,0.8)" className="blur-sm"
             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 8, delay: 1, repeat: Infinity }}
           />
-          <motion.line x1="70%" y1="20%" x2="50%" y2="50%" stroke="rgba(150,150,255,0.2)" strokeWidth="0.5"
+          <motion.line x1="70%" y1="20%" x2="50%" y2="50%" stroke="rgba(150,150,255,0.5)" strokeWidth="0.5"
+            className="blur-sm"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
           />
-          <motion.line x1="85%" y1="15%" x2="50%" y2="50%" stroke="rgba(150,150,255,0.2)" strokeWidth="0.5"
+          <motion.line x1="85%" y1="15%" x2="50%" y2="50%" stroke="rgba(150,150,255,0.5)" strokeWidth="0.5"
+            className="blur-sm"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{ duration: 2, delay: 1, repeat: Infinity, repeatType: "reverse" }}
@@ -199,7 +207,7 @@ const Home = () => {
           variants={fadeIn}
           className="text-3xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg"
         >
-          Digital Yearbook 📔
+          Digital Yearbook
         </motion.h1>
         <motion.p
           variants={fadeIn}
@@ -219,7 +227,7 @@ const Home = () => {
               onClick={handleGoogleLogin}
             >
               <GoogleIcon />
-              <span className="text-lg md:text-2xl">Sign in with College Account</span>
+              <span className="text-lg md:text-2xl">Sign in</span>
 
             </Button>
           ) : (
