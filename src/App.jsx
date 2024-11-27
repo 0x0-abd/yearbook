@@ -73,7 +73,7 @@ function App() {
           canPost: accountDetails.data.canPost,
         });
         if (accountDetails.data.verified) {
-          navigate('/yearbook')
+          // navigate('/yearbook')
         } else {
           navigate('/onboarding')
         }

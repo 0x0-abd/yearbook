@@ -120,7 +120,7 @@ const OnboardingPopups = () => {
   const handleSubmit = async () => {
     // console.log('Submitted:', { profilePicture, name, description });
     // Here you would typically send this data to your backend
-    setStep(4);
+    // setStep(4);
     const formData = new FormData();
 
     if (profilePictureFile) {
@@ -185,7 +185,8 @@ const OnboardingPopups = () => {
   }, [user]);
 
   useEffect(() => {
-    if(step === 2 && user.canPost) {
+    if(step === 2 && user && !user.canPost) {
+      // console.log(user.canPost);
       handleSubmit();
     }
   }, [step, user])
@@ -232,7 +233,9 @@ const OnboardingPopups = () => {
                 </label>
               </div>
               {/* <Button onClick={handleNext} className="w-full" disabled={!profilePicture}>Next</Button> */}
-              <Button onClick={handleNext} className="w-full">Next</Button>
+              {user && user.canPost ? <Button onClick={handleNext} className="w-full">Next</Button> 
+              :
+              <Button onClick={handleSubmit} className='w-full mt-2'>Submit</Button>}
             </motion.div>
           )}
 
@@ -269,7 +272,11 @@ const OnboardingPopups = () => {
               />
               <div className="flex gap-2">
                 <Button onClick={handleBack} variant="outline" className="flex-1 text-white bg-transparent">Back</Button>
-                <Button onClick={handleCropConfirm} className="flex-1">Confirm Crop</Button>
+                {user && user.canPost ? (
+                  <Button onClick={handleCropConfirm} className="flex-1">Confirm Crop</Button>
+                ) : (
+                  <Button onClick={handleCropConfirm} className="flex-1">Submit</Button>
+                )}
               </div>
             </motion.div>
           )}

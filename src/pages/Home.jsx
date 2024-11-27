@@ -66,6 +66,7 @@ const Home = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithPopup(auth, provider);
+      navigate('/yearbook')
     } catch (error) {
       console.error('Google Login Error:', error);
       setError('Sign in with college id only');
